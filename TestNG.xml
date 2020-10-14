@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="MM-QA-Academy Selenium Test Suite"  verbose="1" parallel="methods" thread-count="1" >
+    <listeners>
+    </listeners>
+    <test name="Web tests" verbose="4" >
+        <classes>
+        </classes>
+    </test>
+</suite>
