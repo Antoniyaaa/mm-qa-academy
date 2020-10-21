@@ -1,5 +1,6 @@
 package selenium.module;
 
+import user.User;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -7,16 +8,15 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
-import user.User;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class DemoWebDriver01 {
-    private WebDriver driver;
+     private WebDriver driver;
 
     @BeforeClass
-    public void setUpClass() {
+    public void setUpClass(){
         WebDriverManager.chromedriver().setup();
     }
 
@@ -26,66 +26,57 @@ public class DemoWebDriver01 {
         this.driver.manage().window().maximize();
 
         this.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
         this.driver.get("http://automationpractice.com/index.php");
-        // Add Assertion
-        Assert.assertEquals(this.driver.getTitle(), "My Store");
-    }
-
-    @Test()
-    public void testFindElement() throws Exception {
-        WebElement signInLink = this.driver.findElement(By.className("login"));
-        //WebElement signInLink = this.driver.findElement(By.linkText("Sign in"));
-    }
-
-    @Test()
-    public void testFindElements() throws Exception {
-        List<WebElement> products = this.driver.findElements(By.cssSelector(".ajax_block_product"));
-        System.out.println(String.format("Number of products displayed in sections: %d", products.size()));
+        Assert.assertEquals(driver.getTitle(),"My Store");
     }
 
     @Test
-    public void testGetText() throws Exception {
-        WebElement signInLink = this.driver.findElement(By.className("login"));
-        String elementText = signInLink.getText();
+    public void testFindElement() throws Exception {
+        WebElement element = driver.findElement(By.linkText("Sign in"));
+    }
+
+    @Test
+    public void testFindElements() throws Exception {
+        List<WebElement> products = driver.findElements(By.cssSelector(".ajax_block_product"));
+        System.out.println(String.format("Number of products in sections: %d", products.size()));
+    }
+
+    @Test
+    public void testElementGetText() throws Exception {
+        WebElement element = driver.findElement(By.className("login"));
+        String elementText = element.getText();
         System.out.println(String.format("The element text is: %s", elementText));
     }
 
     @Test
     public void testElementClick() throws Exception {
-        WebElement signInLink = this.driver.findElement(By.className("login"));
-        signInLink.click();
-        //Add Assertion
-        Assert.assertEquals(this.driver.getCurrentUrl(), "http://automationpractice.com/index.php?controller=authentication&back=my-account");
+        navigateToAuthenticationPage(driver);
     }
 
-    @Test(description = "Verifies whether user is able to login")
-    public void loginTest() throws Exception {
+    @Test
+    public void testLogin() throws Exception {
         User user = new User("qa-academy@mentormate.com", System.getenv("USER_PASSWORD"));
 
-/*        WebElement signInLink = this.driver.findElement(By.className("login"));
-        signInLink.click();
-        Assert.assertEquals(this.driver.getCurrentUrl(), "http://automationpractice.com/index.php?controller=authentication&back=my-account");*/
-        navigateToAuthenticationPage();
+        navigateToAuthenticationPage(driver);
 
-        WebElement emailField = this.driver.findElement(By.id("email"));
+        WebElement emailField = driver.findElement(By.id("email"));
         emailField.clear();
         emailField.sendKeys(user.getEmail());
 
-        WebElement passwordField = this.driver.findElement(By.id("passwd"));
+        WebElement passwordField = driver.findElement(By.id("passwd"));
         passwordField.clear();
         passwordField.sendKeys(user.getPassword());
 
-        WebElement signInButton = this.driver.findElement(By.id("SubmitLogin"));
-        signInButton.click();
+        WebElement signButton = driver.findElement(By.id("SubmitLogin"));
+        signButton.click();
 
-        Assert.assertEquals(this.driver.getCurrentUrl(), "http://automationpractice.com/index.php?controller=my-account");
+        Assert.assertEquals(driver.getCurrentUrl(), "http://automationpractice.com/index.php?controller=my-account");
     }
 
-    private void navigateToAuthenticationPage() {
-        WebElement signInLink = this.driver.findElement(By.className("login"));
+    public static void navigateToAuthenticationPage(WebDriver driver){
+        WebElement signInLink = driver.findElement(By.className("login"));
         signInLink.click();
-        Assert.assertEquals(this.driver.getCurrentUrl(), "http://automationpractice.com/index.php?controller=authentication&back=my-account");
+        Assert.assertEquals(driver.getCurrentUrl(), "http://automationpractice.com/index.php?controller=authentication&back=my-account");
     }
 
     @AfterMethod
