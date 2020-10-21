@@ -5,6 +5,11 @@
     </listeners>
     <test name="Web tests" verbose="4" >
         <classes>
+            <class name="selenium.module.DemoWebDriver02">
+                <methods>
+                    <include name="createAccount"></include>
+                </methods>
+            </class>
         </classes>
     </test>
 </suite>
