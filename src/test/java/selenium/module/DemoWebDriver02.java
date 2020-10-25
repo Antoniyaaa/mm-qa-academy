@@ -1,6 +1,5 @@
 package selenium.module;
 
-import io.qameta.allure.Step;
 import org.apache.commons.lang3.RandomStringUtils;
 import user.Address;
 import user.User;
@@ -16,7 +15,6 @@ import org.testng.Assert;
 import org.testng.annotations.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -29,7 +27,7 @@ public class DemoWebDriver02 {
     @BeforeClass
     public void setUpClass(){
         WebDriverManager.chromedriver().setup();
-        this.user = new User("testUser@mentormate.com", "selenium.course");
+        this.user = new User(generateRandomEmail(), "selenium.course");
     }
 
 
