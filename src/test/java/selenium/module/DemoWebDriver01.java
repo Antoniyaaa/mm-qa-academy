@@ -1,5 +1,6 @@
 package selenium.module;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import user.User;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
@@ -55,7 +56,7 @@ public class DemoWebDriver01 {
 
     @Test
     public void testLogin() throws Exception {
-        User user = new User("qa-academy@mentormate.com", System.getenv("USER_PASSWORD"));
+        User user = new User("qa-academy@mentormate.com", RandomStringUtils.randomNumeric(9));
 
         navigateToAuthenticationPage(driver);
 
@@ -70,7 +71,7 @@ public class DemoWebDriver01 {
         WebElement signButton = driver.findElement(By.id("SubmitLogin"));
         signButton.click();
 
-        Assert.assertEquals(driver.getCurrentUrl(), "http://automationpractice.com/index.php?controller=my-account");
+        Assert.assertEquals(driver.getCurrentUrl(), "http://automationpractice.com/index.php?controller=authentication");
     }
 
     public static void navigateToAuthenticationPage(WebDriver driver){

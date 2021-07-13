@@ -159,7 +159,7 @@ public class DemoWebDriver02 {
 
     @Test
     public void createAccount() throws Exception {
-        User user = new User(generateRandomEmail(), System.getenv("USER_PASSWORD"), User.Title.MR,"Test", "User", true, true, LocalDate.now().minusYears(30), "Mentormate", "+359845907234", "+359856907012");
+        User user = new User(generateRandomEmail(), RandomStringUtils.randomNumeric(9), User.Title.MR,"Test", "User", true, true, LocalDate.now().minusYears(30), "Mentormate", "+359845907234", "+359856907012");
         Address address = new Address("30 WALL ST, BINGHAMTON NY", "floor 4, ap. 5", "New York", "New York", "10013", "United States", "Security check required to enter", "Home");
 
         populatePersonalInformation(user);
