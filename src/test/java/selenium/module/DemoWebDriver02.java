@@ -49,7 +49,7 @@ public class DemoWebDriver02 {
 
     @Test
     public void testImplicitWait() throws Exception {
-        WebElement signInLink = driver.findElement(By.linkText("Sign in1"));
+        WebElement signInLink = driver.findElement(By.linkText("Sign in"));
         signInLink.click();
         Assert.assertEquals(driver.getCurrentUrl(), "http://automationpractice.com/index.php?controller=authentication&back=my-account");
     }
