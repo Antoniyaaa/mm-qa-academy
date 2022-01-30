@@ -173,6 +173,28 @@ public class DemoWebDriver02 {
         Assert.assertEquals(driver.findElement(By.className("page-heading")).getText(), "MY ACCOUNT");
         Assert.assertEquals( driver.findElement(By.className("account")).getText(),String.format("%s %s", user.getFirstName(), user.getLastName()));
     }
+     
+     @Test
+public void testAddItemToCart() throws Exception {
+WebElement searchBar = driver.findElement(By.linkText("Search"));
+searchBar.clear();
+	searchBar.sendKeys("shirt");
+		
+	WebElement searchBtn = driver.findElement(By.id("search-btn"));
+        	searchButton.click();
+		
+	WebElement listviewElement = driver.findElement(By.id("listview"));
+	listviewElement.click();
+		
+	WebElement addToCartBtn = driver.findElement(By.id("add-btn"));
+	addToCartBtn.click();
+		
+	WebElement checkOutBtn = wait.until(ExpectedConditions.visibilityOf(By.id("email-create")));
+        	checkOutBtn.click();
+		
+		wait.until(ExpectedConditions.urlContains("http://automationpractice.com/index.php?controller=order"));
+        Assert.assertEquals(driver.findElement(By.tagName("h1")).getText(),"ORDER");
+}
 
     private void populatePersonalInformation(User user) throws Exception {
 
